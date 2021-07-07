@@ -4,6 +4,7 @@ import com.example.boot05webadmin.admin.bean.Account;
 import com.example.boot05webadmin.admin.bean.City;
 import com.example.boot05webadmin.admin.bean.User;
 import com.example.boot05webadmin.admin.service.AccountService;
+import com.example.boot05webadmin.admin.service.AdduserService;
 import com.example.boot05webadmin.admin.service.CityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,8 @@ public class IndeController {
     @Autowired
     CityService cityService;
 
-
+    @Autowired
+AdduserService adduserService;
     @ResponseBody
     @GetMapping("/acct")
     public Account getAccountById(@RequestParam Long id){
@@ -54,7 +56,7 @@ return  cityService.getById(id);
     public String main(User user, HttpSession session, Model model){
   if(StringUtils.hasLength(user.getUserName())&&StringUtils.hasLength(user.getPassword())   ){
       session.setAttribute("loginUser",user);
-
+       adduserService.addUser(user);
       return "redirect:/main.html";//主要是防止页面刷新导致的表单重复提交 重定向到mian.html后刷新只是在/main.html下刷新，不会重复提交表单
   }else{model.addAttribute("msg","账号密码错误!!!");
 return "login";

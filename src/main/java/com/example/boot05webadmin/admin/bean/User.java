@@ -11,5 +11,7 @@ public class User {
 
     private String userName;
     private String password;
-    
+    private String address;
+    private String e_mail;
+    private String phone_number;
 }
